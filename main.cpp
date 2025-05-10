@@ -60,7 +60,7 @@ void measure_structure(const std::string& structureName, const std::vector<int>&
             int oldVal = mid - 10;
             int newVal = mid + 10;
             List.add(oldVal, oldVal);
-            MEASURE_SOME(List.changePriority(oldVal, newVal));
+            MEASURE_SOME(List.changePriority(oldVal, oldVal, newVal));
             MEASURE_SOME(List.size());
 
             std::cout << std::endl;

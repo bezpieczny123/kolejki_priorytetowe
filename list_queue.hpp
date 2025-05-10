@@ -11,7 +11,7 @@ public:
     void add(const T& e, int priority);
     const T& peek() const;
     void remove();
-    void changePriority(const T& e, int newPriority);
+    void changePriority(T& e, int oldPriority, int newPriority);
     void removeC(const T& e);
 private:
     DLinkedList<T> L;
@@ -57,8 +57,8 @@ void ListPriorityQueue<T,C>::remove() {
 }
 
 template<typename T, typename C>
-void ListPriorityQueue<T, C>::changePriority(const T &e, int newPriority) {
-    int idx = L.findIndexOf(e);
+void ListPriorityQueue<T, C>::changePriority(T& e, int oldPriority, int newPriority) {
+    int idx = L.findIndexOf(oldPriority);
     if (idx < 0) {
         throw std::out_of_range("Element not found");
     }
