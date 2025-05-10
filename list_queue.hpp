@@ -58,7 +58,7 @@ void ListPriorityQueue<T,C>::remove() {
 
 template<typename T, typename C>
 void ListPriorityQueue<T, C>::changePriority(T& e, int oldPriority, int newPriority) {
-    int idx = L.findIndexOf(oldPriority);
+    int idx = L.findIndexOf(e, oldPriority);
     if (idx < 0) {
         throw std::out_of_range("Element not found");
     }

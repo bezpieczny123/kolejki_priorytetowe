@@ -111,12 +111,12 @@ public:
         if (temp == tail) throw std::out_of_range("Out of range");
         remove(temp);
     }
-    int findIndexOf(const T& elem) {
+    int findIndexOf(const T& elem, int p) {
         DNode<T>* temp = head->next;
         int index = 0;
 
         while (temp != tail) {
-            if (temp->entry.elem == elem) {
+            if (temp->entry.elem == elem && temp->entry.priority == p) {
                 return index;
             }
             temp = temp->next;
