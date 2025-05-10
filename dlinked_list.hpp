@@ -11,7 +11,14 @@ class DLinkedList;
 template <typename T>
 class DNode {
 private:
-    T elem;
+    struct Entry {
+        T elem;
+        int priority;
+
+        explicit Entry(const T& e = T(), int p = 0) : elem(e), priority(p) {}
+    };
+
+    Entry entry;
     DNode *prev;
     DNode *next;
 
@@ -44,11 +51,11 @@ public:
     }
     const T& front() const {
         if (isEmpty()) throw std::out_of_range("List is empty");
-        return head->next->elem;
+        return head->next->entry.elem;
     }
     const T& back() const {
         if (isEmpty()) throw std::out_of_range("List is empty");
-        return tail->prev->elem;
+        return tail->prev->entry.elem;
     }
     const T& chosen(int i) const{
         if (isEmpty()) throw std::out_of_range("List is empty");
@@ -63,13 +70,13 @@ public:
         if (temp == tail) {
             throw std::out_of_range("Out of bounds");
         }
-        return temp->elem;
+        return temp->entry.elem;
     }
     void addFront(const T& elem) {
-        add(head->next, elem);
+        add(head->next, elem, 0);
     }
     void addBack(const T& elem) {
-        add(tail, elem);
+        add(tail, elem, 0);
     }
     void addChosen(const T& elem, const int index) {
         if (index < 0) throw std::out_of_range("Invalid index");
@@ -81,7 +88,7 @@ public:
             }
             temp = temp->next;
         }
-        add(temp, elem);
+        add(temp, elem, 0);
     }
     void removeFront() {
         if (isEmpty()) throw std::out_of_range("List is empty");
@@ -109,7 +116,7 @@ public:
         int index = 0;
 
         while (temp != tail) {
-            if (temp->elem == elem) {
+            if (temp->entry.elem == elem) {
                 return index;
             }
             temp = temp->next;
@@ -124,9 +131,10 @@ public:
     template <typename U, typename V>
     friend class ListPriorityQueue;
 protected:
-    void add(DNode<T>* v, const T& e) {
+    void add(DNode<T>* v, const T& e, int priority) {
         auto* u = new DNode<T>;
-        u->elem = e;
+        u->entry.elem = e;
+        u->entry.priority = priority;
         u->next = v;
         u->prev = v->prev;
         v->prev->next = u;
@@ -142,6 +150,5 @@ protected:
         n--;
     }
 };
-
 
 #endif //DLINKED_LIST_HPP

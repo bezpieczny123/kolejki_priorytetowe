@@ -42,7 +42,7 @@ void measure_structure(const std::string& structureName, const std::vector<int>&
     for (int a = 1; a < static_cast<int>(listSizes.size()); a++) {
         const int n = listSizes[a];
         for (int i = listSizes[a - 1]; i < n; ++i) {
-            List.add(static_cast<int>(global_index));
+            List.add(global_index, global_index);
             current_min = std::min(current_min, global_index);
             current_max = std::max(current_max, global_index);
             --global_index;
@@ -53,13 +53,13 @@ void measure_structure(const std::string& structureName, const std::vector<int>&
 
             file << n << ",";
             std::cout << n << ",";
-            MEASURE_SOME(List.add(mid));
+            MEASURE_SOME(List.add(mid, mid));
             MEASURE_SOME(List.remove());
             MEASURE_SOME(List.peek());
 
             int oldVal = mid - 10;
             int newVal = mid + 10;
-            List.add(oldVal);
+            List.add(oldVal, oldVal);
             MEASURE_SOME(List.changePriority(oldVal, newVal));
             MEASURE_SOME(List.size());
 
